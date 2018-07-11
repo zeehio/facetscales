@@ -1,0 +1,62 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# facetscales
+
+The goal of facetscales is to let you use `facet_grid` with different scales
+per plot.
+
+## Installation
+
+<!--
+You can install the released version of facetscales from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("facetscales")
+```
+-->
+
+You can install the development version of facetscales with:
+
+``` r
+devtools::install_github("zeehio/facetscales")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(ggplot2)
+library(scales)
+library(facetscales)
+mydf <- data.frame(
+  Subject = rep(c("A", "B", "C", "D"), each = 3),
+  Magnitude = rep(c("SomeValue", "Percent", "Scientific"), times = 4),
+  Value = c(c(170,0.6,2.7E-4),
+            c(180, 0.8, 2.5E-4),
+            c(160, 0.71, 3.2E-4),
+            c(159, 0.62, 3E-4)))
+
+scales_y <- list(
+  Percent = scale_y_continuous(labels = percent_format()),
+  SomeValue = scale_y_continuous(),
+  Scientific = scale_y_continuous(labels = scientific_format())
+)
+
+ggplot(mydf) +
+  geom_point(aes(x = Subject, y = Value)) +
+  facet_grid_sc(rows = vars(Magnitude), scales = list(y = scales_y))
+```
+
