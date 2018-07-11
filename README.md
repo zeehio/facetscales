@@ -1,30 +1,16 @@
----
-output: github_document
----
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+facetscales
+===========
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-```
-# facetscales
+The goal of facetscales is to let you use `facet_grid` with different scales per plot. This is useful for instance to display in different facets magnitudes with different units.
 
-The goal of facetscales is to let you use `facet_grid` with different scales
-per plot. This is useful for instance to display in different facets magnitudes
-with different units.
-
-The final aim of this package is to get more experience on the right interface to
-provide this feature and ultimately merge it into ggplot2, if possible. Preserving
-compatibility with previous versions is not a high priority at this stage.
+The final aim of this package is to get more experience on the right interface to provide this feature and ultimately merge it into ggplot2, if possible. Preserving compatibility with previous versions is not a high priority at this stage.
 
 Discussion and pull requests are welcome.
 
-## Installation
+Installation
+------------
 
 <!--
 You can install the released version of facetscales from [CRAN](https://CRAN.R-project.org) with:
@@ -33,7 +19,6 @@ You can install the released version of facetscales from [CRAN](https://CRAN.R-p
 install.packages("facetscales")
 ```
 -->
-
 You can install the development version of facetscales with:
 
 ``` r
@@ -42,12 +27,12 @@ devtools::install_github("zeehio/facetscales")
 
 The package is not on CRAN, as it is still under development.
 
-## Example
+Example
+-------
 
-This basic example shows the main feature of the package. Each `y` axis has its
-own scale:
+This basic example shows the main feature of the package. Each `y` axis has its own scale:
 
-```{r example}
+``` r
 library(ggplot2)
 library(scales)
 library(facetscales)
@@ -70,3 +55,4 @@ ggplot(mydf) +
   facet_grid_sc(rows = vars(Magnitude), scales = list(y = scales_y))
 ```
 
+<img src="man/figures/README-example-1.png" width="100%" />
