@@ -22,6 +22,8 @@ The final aim of this package is to get more experience on the right interface t
 provide this feature and ultimately merge it into ggplot2, if possible. Preserving
 compatibility with previous versions is not a high priority at this stage.
 
+[![Travis build status](https://travis-ci.org/zeehio/facetscales.svg?branch=master)](https://travis-ci.org/zeehio/facetscales)
+
 Discussion and pull requests are welcome.
 
 ## Installation
