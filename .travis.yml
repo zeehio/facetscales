@@ -9,7 +9,6 @@ r:
   - release
   - devel
 
-#matrix:
-#  include:
-#    - os: osx
-#    - os: linux
+os:
+  - osx
+  - linux
