@@ -121,13 +121,13 @@ FacetGridScales <- ggplot2::ggproto(
       facet_x_names <- as.character(layout[[names(params$cols)]])
       scales$x <- lapply(params$scales$x[facet_x_names], function(x) x$clone())
     } else if (!is.null(x_scale)) {
-      scales$x <- plyr::rlply(max(layout$SCALE_X), x_scale$clone())
+      scales$x <- lapply(seq_len(max(layout$SCALE_X)), function(i) x_scale$clone())
     }
     if (!is.null(params$scales$y)) {
       facet_y_names <- as.character(layout[[names(params$rows)]])
       scales$y <- lapply(params$scales$y[facet_y_names], function(x) x$clone())
     } else if (!is.null(y_scale)) {
-      scales$y <- plyr::rlply(max(layout$SCALE_Y), y_scale$clone())
+      scales$y <- lapply(seq_len(max(layout$SCALE_Y)), function(i) y_scale$clone())
     }
     scales
   }
