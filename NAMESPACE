@@ -3,3 +3,4 @@
 export(FacetGridScales)
 export(facet_grid_sc)
 import(ggplot2)
+import(rlang)

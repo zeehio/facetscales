@@ -7,6 +7,7 @@
 #'  a named list, with a different scale for each facet value. Previous scale values
 #'  (`"fixed"`, `"free_x"`, `"free_y"`, `"free"` are accepted but soft-deprecated).
 #' @export
+#' @import rlang
 #' @import ggplot2
 #' @examples
 #' library(ggplot2)
@@ -91,7 +92,7 @@ facet_grid_sc <- function(rows = NULL, cols = NULL, scales = "fixed",
     stop("A grid facet specification can't have more than two dimensions", call. = FALSE)
   }
   if (n == 1L) {
-    rows <- rlang::quos()
+    rows <- quos()
     cols <- facets_list[[1]]
   } else {
     rows <- facets_list[[1]]
