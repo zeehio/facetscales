@@ -86,36 +86,26 @@ facet_grid_sc <- function(rows = NULL, cols = NULL, scales = "fixed",
     stop("switch must be either 'both', 'x', or 'y'", call. = FALSE)
   }
 
-  facets_list <- ggplot2:::grid_as_facets_list(rows, cols)
-  n <- length(facets_list)
-  if (n > 2L) {
-    stop("A grid facet specification can't have more than two dimensions", call. = FALSE)
-  }
-  if (n == 1L) {
-    rows <- quos()
-    cols <- facets_list[[1]]
-  } else {
-    rows <- facets_list[[1]]
-    cols <- facets_list[[2]]
-  }
+  facets_list <- grid_as_facets_list(rows, cols)
 
   # Check for deprecated labellers
-  labeller <- ggplot2:::check_labeller(labeller)
+  labeller <- check_labeller(labeller)
 
-  ggplot2::ggproto(NULL, FacetGridScales,
+  ggproto(NULL, FacetGridScales,
           shrink = shrink,
-          params = list(rows = rows, cols = cols, margins = margins,
+          params = list(rows = facets_list$rows, cols = facets_list$cols, margins = margins,
                         scales = custom_scales,
                         free = free, space_free = space_free, labeller = labeller,
                         as.table = as.table, switch = switch, drop = drop)
   )
 }
 
+
 #' ggproto facet
 #'
 #' @export
-FacetGridScales <- ggplot2::ggproto(
-  "FacetGridScales", ggplot2::FacetGrid,
+FacetGridScales <- ggproto(
+  "FacetGridScales", FacetGrid,
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
     scales <- list()
     if (!is.null(params$scales$x)) {
