@@ -12,7 +12,7 @@ Description: A ggplot extension to create facet_grid plots with different
 License: GPL-2 | file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: ggplot2 (>= 3.0.0), rlang
+Imports: ggplot2 (>= 3.2.0), rlang
 Suggests: 
     scales,
     testthat
