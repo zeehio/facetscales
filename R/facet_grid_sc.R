@@ -110,16 +110,64 @@ FacetGridScales <- ggproto(
     scales <- list()
     if (!is.null(params$scales$x)) {
       facet_x_names <- unique(as.character(layout[[names(params$cols)]]))
-      scales$x <- lapply(params$scales$x[facet_x_names], function(x) x$clone())
+      scales$x <- lapply(params$scales$x[facet_x_names], function(x) {
+        new <- x$clone()
+        new$oob <- function(x, ...) x
+        new
+      })
     } else if (!is.null(x_scale)) {
       scales$x <- lapply(seq_len(max(layout$SCALE_X)), function(i) x_scale$clone())
     }
     if (!is.null(params$scales$y)) {
       facet_y_names <- unique(as.character(layout[[names(params$rows)]]))
-      scales$y <- lapply(params$scales$y[facet_y_names], function(x) x$clone())
+      scales$y <- lapply(params$scales$y[facet_y_names], function(x){
+        new <- x$clone()
+        new$oob <- function(x, ...) x
+        new
+      })
     } else if (!is.null(y_scale)) {
       scales$y <- lapply(seq_len(max(layout$SCALE_Y)), function(i) y_scale$clone())
     }
     scales
+  },
+  train_scales = function(x_scales, y_scales, layout, data, params, self) {
+    # Transform data first
+    data <- lapply(data, function(layer_data) {
+      self$finish_data(layer_data, layout,
+                       x_scales, y_scales, params)
+    })
+
+    # Then use parental method for scale training
+    ggproto_parent(Facet, self)$train_scales(x_scales, y_scales,
+                                             layout, data, params)
+  },
+  finish_data = function(data, layout, x_scales, y_scales, params) {
+    # Divide data by panel
+    panels <- split(data, data$PANEL, drop = T)
+    panels <- lapply(names(panels), function(i) {
+      dat  <- panels[[i]]
+
+      # Match panel to their scales
+      panel_id <- match(as.numeric(i), layout$PANEL)
+      xidx <- layout[panel_id, "SCALE_X"]
+      yidx <- layout[panel_id, "SCALE_Y"]
+
+      # Decide what variables need to be transformed
+      y_vars <- intersect(y_scales[[yidx]]$aesthetics, names(dat))
+      x_vars <- intersect(x_scales[[xidx]]$aesthetics, names(dat))
+
+      # Transform variables by appropriate scale
+      for (j in y_vars) {
+        dat[, j] <- y_scales[[yidx]]$transform(dat[, j])
+      }
+      for (j in x_vars) {
+        dat[, j] <- x_scales[[xidx]]$transform(dat[, j])
+      }
+      dat
+    })
+
+    # Recombine the data
+    data <- unsplit(panels, data$PANEL)
+    data
   }
 )
