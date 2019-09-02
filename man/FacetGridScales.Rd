@@ -4,7 +4,7 @@
 \name{FacetGridScales}
 \alias{FacetGridScales}
 \title{ggproto facet}
-\format{An object of class \code{FacetGridScales} (inherits from \code{FacetGrid}, \code{Facet}, \code{ggproto}, \code{gg}) of length 2.}
+\format{An object of class \code{FacetGridScales} (inherits from \code{FacetGrid}, \code{Facet}, \code{ggproto}, \code{gg}) of length 4.}
 \usage{
 FacetGridScales
 }
