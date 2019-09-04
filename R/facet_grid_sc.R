@@ -143,7 +143,7 @@ FacetGridScales <- ggproto(
   },
   finish_data = function(data, layout, x_scales, y_scales, params) {
     # Divide data by panel
-    panels <- split(data, data$PANEL, drop = T)
+    panels <- split(data, data$PANEL, drop = FALSE)
     panels <- lapply(names(panels), function(i) {
       dat  <- panels[[i]]
 
