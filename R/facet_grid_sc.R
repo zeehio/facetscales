@@ -156,13 +156,31 @@ FacetGridScales <- ggproto(
       y_vars <- intersect(y_scales[[yidx]]$aesthetics, names(dat))
       x_vars <- intersect(x_scales[[xidx]]$aesthetics, names(dat))
 
-      # Transform variables by appropriate scale
-      for (j in y_vars) {
-        dat[, j] <- y_scales[[yidx]]$transform(dat[, j])
+      # Get scales
+      y_scale <- y_scales[[yidx]]
+      x_scale <- x_scales[[xidx]]
+
+      # It doesn't make sense to perform transforms on discrete scales
+      if (!x_scale$is_discrete()) {
+        # Get inverse transforms for class checking
+        x_inv <- x_scale$trans$inverse(1)
+        for (j in x_vars) {
+          if (inherits(dat[[j]], class(x_inv))) {
+            # Transform variables by appropriate scale
+            dat[, j] <- x_scale$transform(dat[, j])
+          }
+        }
       }
-      for (j in x_vars) {
-        dat[, j] <- x_scales[[xidx]]$transform(dat[, j])
+
+      if (!y_scale$is_discrete()) {
+        y_inv <- y_scale$trans$inverse(1)
+        for (j in y_vars) {
+          if (inherits(dat[[j]], class(y_inv))) {
+            dat[, j] <- y_scale$transform(dat[, j])
+          }
+        }
       }
+
       dat
     })
 
