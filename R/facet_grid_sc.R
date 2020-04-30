@@ -161,7 +161,7 @@ FacetGridScales <- ggproto(
       x_scale <- x_scales[[xidx]]
 
       # It doesn't make sense to perform transforms on discrete scales
-      if (!x_scale$is_discrete()) {
+      if (!is.null(x_scale) && !x_scale$is_discrete()) {
         # Get inverse transforms for class checking
         x_inv <- x_scale$trans$inverse(1)
         for (j in x_vars) {
@@ -172,7 +172,7 @@ FacetGridScales <- ggproto(
         }
       }
 
-      if (!y_scale$is_discrete()) {
+      if (!is.null(y_scale) && !y_scale$is_discrete()) {
         y_inv <- y_scale$trans$inverse(1)
         for (j in y_vars) {
           if (inherits(dat[[j]], class(y_inv))) {
