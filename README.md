@@ -1,5 +1,16 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# Serious bug reported
+
+**Boxplots on facetscales are wrong.**
+
+See: https://github.com/zeehio/facetscales/issues/26
+
+BEWARE!
+
+(I hope to remove this warning as soon as the bug is resolved)
+
 facetscales
 ===========
 
