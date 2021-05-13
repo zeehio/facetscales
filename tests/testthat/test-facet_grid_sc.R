@@ -31,3 +31,15 @@ test_that("facet_grid_sc() accepts transformations", {
   expect_identical(ctrl[ctrl$PANEL == 3, "y"],
                    test[test$PANEL == 3, "y"])
 })
+
+test_that("facet_grid_sc() accepts date scales", {
+  g <- ggplot() +
+    geom_point(aes(x = Sys.Date() - 10, y = 1),
+              data = data.frame(facet = "left")) +
+    geom_point(aes(x = Sys.Date() + 10, y = 1),
+               data = data.frame(facet = "right")) +
+    facet_grid_sc(vars(facet),
+                  scales = list(y = list(left = scale_y_log10(),
+                                         right = scale_y_sqrt())))
+  expect_silent(ggplotGrob(g))
+})
