@@ -6,6 +6,12 @@ Fixing the multiple issues of this package requires changes to ggplot2 that are 
 
 So it is better to archive this to avoid further confusion
 
+If you still want to install this branch, please use:
+
+    remotes::install_github("zeehio/facetscales@archived")
+
+
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # Serious bug reported
