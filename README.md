@@ -1,3 +1,10 @@
+# Project archived
+
+I no longer think this is a good approach or idea, I suggest you use either [cowplot](https://cran.r-project.org/web/packages/cowplot/index.html) or [patchwork](https://cran.r-project.org/web/packages/patchwork/index.html).
+
+Fixing the multiple issues of this package requires changes to ggplot2 that are not going to happen.
+
+So it is better to archive this to avoid further confusion
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
