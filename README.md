@@ -7,7 +7,7 @@ I no longer think this is a good approach or idea, I suggest you use either
 Fixing the multiple issues of this package requires changes to ggplot2 that
 are not going to happen.
 
-So it is better to archive this to avoid further confusion
+So it is better to archive this project to avoid further confusion
 
 If you still want access to this project, the last version is available at
 the `archived` branch.
